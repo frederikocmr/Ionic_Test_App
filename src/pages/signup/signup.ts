@@ -5,6 +5,8 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers';
 import { MainPage } from '../';
 
+import { UserAccount } from '../../models/user-account';
+
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -14,10 +16,7 @@ export class SignupPage {
 
   // Our translated text strings
   private signupErrorString: string;
-  public account: { email: string, password: string } = {
-    email: '',
-    password: ''
-  };
+  public account: UserAccount = { email: "", password: "" };;
 
   constructor(public navCtrl: NavController,
     public toastCtrl: ToastController,
@@ -30,23 +29,8 @@ export class SignupPage {
   }
 
   doSignup() {
-    /*  Attempt to login in through our User service
-    this.user.signup(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
-    }, (err) => {
 
-      this.navCtrl.push(MainPage);
-
-      // Unable to sign up
-      let toast = this.toastCtrl.create({
-        message: this.signupErrorString,
-        duration: 3000,
-        position: 'top'
-      });
-      toast.present();
-    });
-    */
-    this.firebase.signUp(this.account.email, this.account.password).then((user) => {
+    this.firebase.signUp(this.account).then((user) => {
 
       this.navCtrl.push(MainPage); // mostrar msg sucesso -> error do catch nao ta dando...
     })
